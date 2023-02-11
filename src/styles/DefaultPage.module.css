@@ -1,0 +1,38 @@
+.header {
+   align-items: center;
+   display: flex;
+   justify-content: space-between;
+   margin: 2rem auto;
+}
+
+.navigation{
+   max-width: 100px;
+   width: 60%;
+}
+
+.navigation__list{
+   align-items: center;
+   display: flex;
+   justify-content: space-between;
+   list-style: none;
+}
+
+.header__logo{
+   display: none;
+}
+
+.feed {
+   display: flex;
+   flex-direction: column;
+   flex-grow: 1;
+   justify-content: flex-end;
+   padding-top: 4rem;
+}
+
+.footer {
+   align-items: center;
+   color: var(--branco);
+   display: flex;
+   height: 104px;
+   justify-content: center;
+}

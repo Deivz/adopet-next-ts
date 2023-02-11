@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500&family=Poppins&display=swap');
+@import '@/styles/Buttons.css';
+:root {
+  --azul: #3772FF;
+  --branco: #FFFFFF;
+  --cinza: #737380;
+  --cinza-claro: #F6F6F6;
+  --creme: #FCF0E3;
+  --verde: #36D6AD;
+  --vermelho: #FC7071;
+  --fundo-card: #E5E5E566;
+  --fonte-principal: 'Poppins', sans-serif;
+  --fonte-secundaria: 'IBM Plex Sans', sans-serif;
+}
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* section{
+  z-index: 1;
+} */
+
+footer{
+  background-color: var(--verde);
+  z-index: 1;
+}
+
+/* #__next{
+  display: flex;
+  justify-content: space-between;
+} */
+
+.page{
+  background-image: url('../../public/images/vetor_topo.svg'), url('../../public/images/linha_superior.svg');
+  background-position: top left, top left;
+  background-repeat: no-repeat;
+  color: var(--branco);
+  display: flex;
+  font-family: var(--fonte-principal);
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.bgBlue{
+  background-color: var(--azul);
+  z-index: -100;
+}
+
+.bgWhite{
+  background-color: var(--branco);
+}
+
+.container{
+  margin: 0 auto;
+  max-width: 1500px;
+  width: 86vw;
+}
+
+@media (min-width: 768px){
+  .page {
+    background-size: 530px 435px, 560px 469px, 135px 664px;
+  }
+}
+
+@media (min-width: 1600px){
+  .page {
+    background-size: 570px 470px, 590px 495px, 135px 664px;
+  }
+}
