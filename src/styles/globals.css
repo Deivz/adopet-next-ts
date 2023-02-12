@@ -34,7 +34,7 @@ footer{
 } */
 
 .page{
-  background-image: url('../../public/images/vetor_topo.svg'), url('../../public/images/linha_superior.svg');
+  background-image: url('/images/vetor_topo.svg'), url('/images/linha_superior.svg');
   background-position: top left, top left;
   background-repeat: no-repeat;
   color: var(--branco);
