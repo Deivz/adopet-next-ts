@@ -1,35 +1,55 @@
-// import Button from "@/components/Button";
-// import Link from "next/link";
+import styles from '@/styles/SignIn.module.css';
+import Button from '@/components/Button';
+import Link from 'next/link';
+import { useCallback } from 'react';
+import InputField from '@/components/InputField';
+// import Patas from '../../components/Patas';
+// import CadastroInput from '../../components/CadastroInput';
+// import SenhaInput from '../../components/SenhaInput';
+// import { useForm } from 'react-hook-form';
+// import CampoErro from '../../components/CampoErro';
+
+export default function SignIn() {
+
+   // const { authenticated, logar, user, validUser, validPassword } = useContext(AuthContext);
+
+   // const { register, handleSubmit } = useForm();
+
+   const handleSubmit = useCallback(
+      () => {
+         console.log("logou");
+      }, []);
 
 
-// export default function SignIn() {
-
-//    return (
-//       <>
-//          <div className='login__imagem--lateral'>
-//          </div>
-//          <section>
-//             <div className='login__conteudo'>
-//                <Link href={'/'}>
-//                   {/* <img src={ } alt="Logomarca da Adopet" className="logo" /> */}
-//                </Link>
-//                <p className="login__conteudo--titulo">Já tem conta? Faça seu login:</p>
-//             </div>
-//             <form className="login__formulario">
-//                <div className='formulario__campos'>
-//                   {/* <CadastroInput register={register} label='Email' type='email' id='email' name='email' placeholder='Insira seu email' />
-//                   {!validUser && <CampoErro type='invalid' field="email" />} */}
-//                </div>
-//                <div className='formulario__campos'>
-//                   {/* <SenhaInput register={register} label='Senha' id='senha' name='senha' placeholder='Insira sua senha' />
-//                   {!validPassword && <CampoErro type='invalid' field="senha" />} */}
-//                </div>
-//                <Link href={'/login'} className='lembrar__senha'><p className='texto__lembrar'>Esqueci minha senha</p></Link>
-//                <div className="botao__entrar">
-//                   <Button type='submit' value='Entrar' />
-//                </div>
-//             </form>
-//          </section>
-//       </>
-//    );
-// }
+   return (
+      <>
+         {/* <Patas /> */}
+         <div className={styles.side__image}>
+         </div>
+         <section>
+            <div className={styles.content}>
+               <Link href='/'>
+                  <img src='/images/logo_azul.svg' alt="Logomarca da Adopet" className={styles.logo} />
+               </Link>
+               <p className={styles.content__tittle}>Já tem conta? Faça seu login:</p>
+            </div>
+            <form className={styles.form} onSubmit={handleSubmit}>
+               <div className={styles.form__fields}>
+                  <InputField label='Email' type='email' id='email' name='email' placeholder='Insira seu email' />
+                  {/* {!validUser && <CampoErro type='invalid' field="email" />} */}
+               </div>
+               <div className={styles.form__fields}>
+                  <InputField label='Senha' type='password' id='senha' name='senha' placeholder='Insira sua senha' />
+                  {/* {!validPassword && <CampoErro type='invalid' field="senha" />} */}
+               </div>
+               <Link href='/login' className={styles.password__link}>
+                  <p className={styles.password__label}>Esqueci minha senha</p>
+               </Link>
+               <div className={styles.button__signin}>
+                  <Button type='submit' value='Entrar' className='button' />
+               </div>
+            </form>
+         </section>
+      </>
+   );
+}

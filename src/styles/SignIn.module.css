@@ -1,0 +1,39 @@
+.side__image {
+   background-image: url('/public/images/vetor_lateral.svg');
+   background-repeat: no-repeat;
+   background-size: cover;
+   height: 435px;
+   left: 0;
+   position: absolute;
+   top: 33vh;
+   transform: scaleX(-1);
+   width: 75px;
+}
+
+.content{
+   text-align: center;
+}
+
+.content__tittle {
+   color: var(--azul);
+   line-height: 21px;
+   padding: 1.5rem 0;
+   text-align: center;
+}
+
+.form {
+   color: var(--cinza);
+   height: 58vh;
+   padding-top: 1rem;
+   text-align: center;
+}
+
+.password__link {
+   color: var(--vermelho);
+   font-size: 12px;
+   line-height: 24px;
+}
+
+.password__label{
+   padding-bottom: 2rem;
+}

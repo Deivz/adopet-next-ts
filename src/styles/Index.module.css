@@ -1,5 +1,5 @@
-.side__image{
-  background-image: url('../../public/images/vetor_lateral.svg');
+.side__image {
+  background-image: url('/public/images/vetor_lateral.svg');
   background-repeat: no-repeat;
   background-size: cover;
   height: 500px;
@@ -27,18 +27,18 @@
   padding-top: 1rem;
 }
 
-.content__tittle__mobile {
+.content__mobile {
   font-style: normal;
   font-size: 16px;
   line-height: 24px;
   padding: 1rem 0;
 }
 
-.content__tittle__desktop {
+.content__desktop {
   display: none;
 }
 
-.container__illustration{
+.container__illustration {
   align-items: flex-end;
   display: flex;
   justify-content: center;
@@ -51,68 +51,58 @@
   top: 1.2rem;
 }
 
-@media (min-width: 768px){
-  .inicio__imagem--lateral{
-      height: 670px;
-      top: 20vh;
-      width: 115px;
+@media (min-width: 768px) {
+  .side__image {
+    height: 670px;
+    top: 20vh;
+    width: 115px;
   }
 
   .logo {
-      height: 62px;
+    height: 62px;
   }
 
-  .inicio__conteudo {
-      width: 344px;
+  .content {
+    width: 344px;
   }
 
-  .inicio__texto--mobile {
-      display: none;
-  }
-  
-  .inicio__texto {
-      display: block;
-      font-style: normal;
-      font-size: 18px;
-      line-height: 26px;
-      padding: 1rem 0;
+  .content__mobile {
+    display: none;
   }
 
-  .container__ilustracao{
-      width: 80vw;
+  .content__desktop {
+    display: block;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 26px;
+    padding: 1rem 0;
   }
-  
-  .ilustracao {
-      height: 422px;
+
+  .container__illustration {
+    width: 95vw;
+  }
+
+  .illustration {
+    height: 422px;
   }
 }
 
-@media (min-width: 1440px){
-  .inicio__imagem--lateral{
-      height: 670px;
-      top: 15vh;
-      width: 115px;
+@media (min-width: 1440px) {
+  .side__image {
+    height: 670px;
+    top: 15vh;
+    width: 115px;
   }
 
   .logo {
-      height: 64px;
+    height: 64px;
   }
 
-  .inicio__conteudo {
-      width: 488px;
+  .content {
+    width: 488px;
   }
 
-  .container__ilustracao{
-      width: 84vw;
-  }
-  
-  .ilustracao {
-      height: 432px;
-  }
-}
-
-@media (min-width: 1600px){
-  .container__ilustracao{
-      width: 76vw;
+  .illustration {
+    height: 432px;
   }
 }
