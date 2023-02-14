@@ -19,3 +19,23 @@
    font-family: var(--fonte-principal);
    font-size: 12px;
 }
+
+@media (min-width: 768px){
+   .input {
+       width: 344px;
+   }
+   
+   .input::placeholder {
+       font-size: 14px;
+   }
+}
+
+@media (min-width: 1440px){
+   .input {
+       width: 552px;
+   }
+   
+   .input::placeholder {
+       font-size: 16px;
+   }
+}

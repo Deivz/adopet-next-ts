@@ -10,6 +10,10 @@
    width: 75px;
 }
 
+.logo {
+   height: 46px;
+ }
+
 .content{
    text-align: center;
 }
@@ -32,8 +36,33 @@
    color: var(--vermelho);
    font-size: 12px;
    line-height: 24px;
+   width: 100px;
 }
 
-.password__label{
-   padding-bottom: 2rem;
+.button__signin{
+   margin-top: 2rem;
+}
+
+@media (min-width: 768px) and (orientation: landscape) {
+   .side__image {
+       height: auto;
+   }
+}
+
+@media (min-width: 768px) {
+   .side__image {
+       height: 655px;
+       left: unset;
+       position: absolute;
+       right: 0;
+       top: 20vh;
+       transform: scaleX(1);
+       width: 110px;
+   }
+}
+
+@media (min-width: 1440px) {
+   .form {
+       height: 65vh;
+   }
 }

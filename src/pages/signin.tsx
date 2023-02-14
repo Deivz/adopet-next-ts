@@ -3,6 +3,7 @@ import Button from '@/components/Button';
 import Link from 'next/link';
 import { useCallback } from 'react';
 import InputField from '@/components/InputField';
+import InputPassword from '@/components/InputPassword';
 // import Patas from '../../components/Patas';
 // import CadastroInput from '../../components/CadastroInput';
 // import SenhaInput from '../../components/SenhaInput';
@@ -39,11 +40,11 @@ export default function SignIn() {
                   {/* {!validUser && <CampoErro type='invalid' field="email" />} */}
                </div>
                <div className={styles.form__fields}>
-                  <InputField label='Senha' type='password' id='senha' name='senha' placeholder='Insira sua senha' />
+                  <InputPassword label='Senha' id='senha' name='senha' placeholder='Insira sua senha' />
                   {/* {!validPassword && <CampoErro type='invalid' field="senha" />} */}
                </div>
                <Link href='/login' className={styles.password__link}>
-                  <p className={styles.password__label}>Esqueci minha senha</p>
+                  Esqueci minha senha
                </Link>
                <div className={styles.button__signin}>
                   <Button type='submit' value='Entrar' className='button' />

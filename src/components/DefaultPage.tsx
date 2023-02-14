@@ -14,19 +14,19 @@ export default function DefaultPage({ children }: DefaultPageProps) {
    const { pathname } = router;
 
    useEffect(() => {
-      document.getElementById("__next")?.classList.add('page');
+      document.getElementById("generalContent")?.classList.add('page');
 
       if(pathname === '/'){
-         document.getElementById("__next")?.classList.add('bgBlue');
-         document.getElementById("__next")?.classList.remove('bgWhite');
+         document.getElementById("generalContent")?.classList.add('bgBlue');
+         document.getElementById("generalContent")?.classList.remove('bgWhite');
       } else {
-         document.getElementById("__next")?.classList.remove('bgBlue');
-         document.getElementById("__next")?.classList.add('bgWhite');
+         document.getElementById("generalContent")?.classList.remove('bgBlue');
+         document.getElementById("generalContent")?.classList.add('bgWhite');
       }
    }, [pathname])
 
    return (
-      <Fragment>
+      <div id='generalContent' data-testid='generalContent'>
          <header>
             <div className={`container ${styles.header}`}>
                <nav className={styles.navigation}>
@@ -64,6 +64,6 @@ export default function DefaultPage({ children }: DefaultPageProps) {
          <footer>
             <div className={`container ${styles.footer}`}>2022 - Desenvolvido por Carlos Davi.</div>
          </footer>
-      </Fragment>
+      </div>
    )
 }

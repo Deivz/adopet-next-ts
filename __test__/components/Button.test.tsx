@@ -1,6 +1,5 @@
-import React from 'react';
-import { getByLabelText, render } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
+// import React from 'react';
+import { render } from '@testing-library/react';
 import Button from '@/components/Button';
 
 describe('/components/Button', () => {

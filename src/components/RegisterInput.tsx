@@ -1,6 +1,6 @@
-import '../styles/CadastroInput.module.css';
+import '../styles/RegisterInput.module.css';
 
-export type CadastroInputProps = {
+export type RegisterInputProps = {
    register?: any;
    label: string;
    type?: string;
@@ -9,7 +9,7 @@ export type CadastroInputProps = {
    placeholder: string;
 }
 
-export default function CadastroInput({ register, label, type, name, id, placeholder }: CadastroInputProps) {
+export default function RegisterInput({ register, label, type, name, id, placeholder }: RegisterInputProps) {
    return (
       <>
          <label htmlFor={id} className='label'>{label}</label>
