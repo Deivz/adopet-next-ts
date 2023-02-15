@@ -32,7 +32,7 @@ export default function SignIn() {
                <Link href='/'>
                   <img src='/images/logo_azul.svg' alt="Logomarca da Adopet" className={styles.logo} />
                </Link>
-               <p className={styles.content__tittle}>Já tem conta? Faça seu login:</p>
+               <p className={styles.content__title}>Já tem conta? Faça seu login:</p>
             </div>
             <form className={styles.form} onSubmit={handleSubmit}>
                <div className={styles.form__fields}>

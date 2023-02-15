@@ -1,3 +1,14 @@
+.feet {
+   background-image: url('/images/Patas.png');
+   background-repeat: no-repeat;
+   background-size: cover;
+   height: 165px;
+   position: absolute;
+   right: 0;
+   top: 0;
+   width: 165px;
+}
+
 .header {
    align-items: center;
    display: flex;
@@ -5,19 +16,19 @@
    margin: 2rem auto;
 }
 
-.navigation{
+.navigation {
    max-width: 100px;
    width: 60%;
 }
 
-.navigation__list{
+.navigation__list {
    align-items: center;
    display: flex;
    justify-content: space-between;
    list-style: none;
 }
 
-.header__logo{
+.header__logo {
    display: none;
 }
 
@@ -38,22 +49,32 @@
 }
 
 @media (min-width: 768px) {
-   .navigation{
-       max-width: 300px;
-       width: 60%;
+   .feet {
+      height: 220px;
+      width: 220px;
    }
 
-   .header__logo{
-       display: inline-block;
+   .navigation {
+      max-width: 300px;
+      width: 60%;
    }
 
-   .feed{
-       padding-top: 8rem;
+   .header__logo {
+      display: inline-block;
+   }
+
+   .feed {
+      padding-top: 8rem;
    }
 }
 
 @media (min-width: 1440px) {
-   .feed{
-       padding-top: 0;
+   .feet {
+      height: 240px;
+      width: 240px;
+   }
+
+   .feed {
+      padding-top: 0;
    }
 }

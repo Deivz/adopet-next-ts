@@ -1,7 +1,7 @@
 import styles from '@/styles/DefaultPage.module.css'
 import Link from "next/link";
 import { useRouter } from 'next/router';
-import { Fragment, useEffect } from "react";
+import { useEffect } from "react";
 
 type DefaultPageProps = {
    children: React.ReactNode;
@@ -10,23 +10,31 @@ type DefaultPageProps = {
 export default function DefaultPage({ children }: DefaultPageProps) {
 
    const router = useRouter();
-
    const { pathname } = router;
 
    useEffect(() => {
       document.getElementById("generalContent")?.classList.add('page');
 
-      if(pathname === '/'){
+      if (pathname === '/') {
          document.getElementById("generalContent")?.classList.add('bgBlue');
          document.getElementById("generalContent")?.classList.remove('bgWhite');
       } else {
          document.getElementById("generalContent")?.classList.remove('bgBlue');
          document.getElementById("generalContent")?.classList.add('bgWhite');
       }
+
+      if (pathname === '/signin' || pathname === '/cadastro') {
+         document.getElementById("feet")?.classList.add(styles.feet);
+      } else {
+         document.getElementById("feet")?.classList.remove(styles.feet);
+      }
+
    }, [pathname])
 
    return (
       <div id='generalContent' data-testid='generalContent'>
+         <div id='feet'>
+         </div>
          <header>
             <div className={`container ${styles.header}`}>
                <nav className={styles.navigation}>

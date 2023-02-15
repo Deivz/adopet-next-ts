@@ -1,4 +1,8 @@
-.side__image {
+.logo {
+   height: 46px;
+ }
+
+.side__image{
    background-image: url('/images/vetor_lateral.svg');
    background-repeat: no-repeat;
    background-size: cover;
@@ -10,51 +14,54 @@
    width: 75px;
 }
 
-.logo {
-   height: 46px;
- }
-
-.content{
+.content {
    text-align: center;
 }
 
 .content__title {
    color: var(--azul);
    line-height: 21px;
-   padding: 1.5rem 0;
+   padding-top: 1.5rem;
    text-align: center;
+}
+
+.content__text {
+   color: var(--azul);
+   line-height: 21px;
+   margin: 0 auto;
+   padding: .5rem 0;
+   width: 312px;
 }
 
 .form {
    color: var(--cinza);
-   height: 58vh;
+   min-height: 50vh;
    padding-top: 1rem;
    text-align: center;
 }
 
-.password__link {
-   color: var(--vermelho);
-   font-size: 12px;
-   line-height: 24px;
-   width: 100px;
+.form__field{
+   align-items: center;
+   display: flex;
+   flex-direction: column;
 }
 
-.button__signin{
-   margin-top: 2rem;
+.button__desktop{
+   display: none;
 }
 
-@media (min-width: 768px) and (orientation: landscape) {
+@media (min-width: 768px) and (orientation: landscape){
    .logo {
       height: 64px;
     }
-   
-   .side__image {
-       height: auto;
+
+   .form{
+       min-height: auto;
    }
 }
 
-@media (min-width: 768px) {
-   .side__image {
+@media (min-width: 768px){
+   .side__image{
        height: 655px;
        left: unset;
        position: absolute;
@@ -65,8 +72,16 @@
    }
 }
 
-@media (min-width: 1440px) {
-   .form {
-       height: 65vh;
+@media (min-width: 1440px){
+   .form{
+       min-height: 60vh;
+   }
+
+   .button__desktop{
+       display: block;
+   }
+
+   .button__mobile{
+       display: none;
    }
 }
