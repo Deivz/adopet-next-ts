@@ -1,13 +1,17 @@
 import styles from '@/styles/DefaultPage.module.css'
 import Link from "next/link";
 import { useRouter } from 'next/router';
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
+import ProfileIcon from './ProfileIcon';
 
 type DefaultPageProps = {
    children: React.ReactNode;
 }
 
 export default function DefaultPage({ children }: DefaultPageProps) {
+
+   // const { imageDefault } = useContext(ImageUploadContext);
+   // const { authenticated } = useContext(AuthContext);
 
    const router = useRouter();
    const { pathname } = router;
@@ -45,7 +49,7 @@ export default function DefaultPage({ children }: DefaultPageProps) {
                         </Link>
                      </li>
                      <li className='cabecalho__icones'>
-                        <Link href={pathname === '/home' ? '/home' : '/'}>
+                        <Link href={pathname === '/' ? '/home' : '/'}>
                            <img src='/images/Casa.svg' alt="Página inicial" />
                         </Link>
                      </li>
@@ -56,14 +60,14 @@ export default function DefaultPage({ children }: DefaultPageProps) {
                      </li>
                   </ul>
                </nav>
-               {/* {(pathname === '/home' || pathname === '/contato' || pathname === '/perfil') &&
+               {(pathname === '/home' || pathname === '/contato' || pathname === '/perfil') &&
                   <div className='perfil'>
                      <Link href='perfil'>
-                        <IconePerfil imageDefault={imageDefault} />
+                        <ProfileIcon imageDefault={'nada'} />
                      </Link>
-                     {authenticated && <BotaoSair />}
+                     {/* {authenticated && <BotaoSair />} */}
                   </div>
-               } */}
+               }
             </div>
          </header>
          <main className={styles.feed}>

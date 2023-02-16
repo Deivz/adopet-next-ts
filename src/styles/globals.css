@@ -19,6 +19,14 @@
   padding: 0;
 }
 
+html{
+  line-height: 1.15;
+}
+
+::placeholder{
+  color: rgba(115,115,128, 0.7);
+}
+
 section{
   z-index: 1;
 }
