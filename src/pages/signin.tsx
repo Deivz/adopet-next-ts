@@ -4,11 +4,6 @@ import Link from 'next/link';
 import { useCallback } from 'react';
 import InputField from '@/components/InputField';
 import InputPassword from '@/components/InputPassword';
-// import Patas from '../../components/Patas';
-// import CadastroInput from '../../components/CadastroInput';
-// import SenhaInput from '../../components/SenhaInput';
-// import { useForm } from 'react-hook-form';
-// import CampoErro from '../../components/CampoErro';
 
 export default function SignIn() {
 

@@ -1,9 +1,7 @@
-import React from 'react';
 import { render } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
 import Index from '@/pages';
 
-describe('/pages/Index', () => {
+describe('/pages/index', () => {
    it("Should render the company logo", () => {
       const { getByRole, getByAltText } = render(<Index />);
       
