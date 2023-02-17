@@ -9,7 +9,7 @@ type ButtonProps = {
 }
 
 export default function Button({ className, route, text, type, value }: ButtonProps) {
-    console.log(className);
+
     return (
         className !== 'linkButton' ?
             <input className={className} type={type} value={value} />
