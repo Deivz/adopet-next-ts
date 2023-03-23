@@ -1,0 +1,58 @@
+interface ErrorMessages {
+   [key: string]: {
+      [key: string]: string;
+   };
+}
+
+const errors: ErrorMessages = {
+   "email": {
+      "email": "Digite um email válido.",
+      "required": "O campo email não pode estar vazio.",
+      "max": "O email deve possuir no máximo 50 caracteres.",
+      "invalid": "Usuário não cadastrado!"
+   },
+   "nome": {
+      "required": "O campo nome não pode estar vazio.",
+      "min": "O nome deve possuir no mínimo 2 caracteres.",
+      "max": "O nome deve possuir no máximo 50 caracteres.",
+      "matches": "O campo nome não pode possuir números ou operadores."
+
+   },
+   "senha": {
+      "required": "O campo senha não pode estar vazio.",
+      "max": "Sua senha deve possuir no máximo 15 caracteres",
+      "matches": "A senha deve conter ao menos um número, uma letra maiúscula, uma minúscula, um dos caracteres especiais ($ * & @ #) e no mínimo 6 caracteres.",
+      "invalid": "Senha digitada não corresponde a senha do usuário!"
+   },
+   "senha__confirma": {
+      "required": "O campo de confirmar senha não pode estar vazio.",
+      "oneOf": "A confirmação de senha difere da senha digitada."
+   },
+   "telefone": {
+      "required": "O campo telefone não pode estar vazio.",
+      "matches": "Telefone inválido! É necessário informar o DDD sem o 0 e o número do telefone."
+   },
+   "nome__animal": {
+      "required": "O campo nome do animal não pode estar vazio.",
+      "min": "O nome do animal deve possuir no mínimo 2 caracteres.",
+      "max": "O nome do animal deve possuir no máximo 20 caracteres."
+   },
+   "contato__texto": {
+      "required": "O campo mensagem não pode estar vazio.",
+      "max": "A mensagem deve possuir no máximo 300 caracteres."
+   },
+   "cidade": {
+      "required": "O campo cidade não pode estar vazio.",
+      "min": "O nome da cidade deve possuir no mínimo 2 caracteres.",
+      "max": "O nome da cidade deve possuir no máximo 50 caracteres."
+   },
+   "perfil__sobre": {
+      "required": "O campo sobre não pode estar vazio.",
+      "max": "O campo sobre deve possuir no máximo 300 caracteres."
+   },
+   "profileImage": {
+      "imagemInvalida": "A imagem deve ser do tipo .jpeg, .jpg ou .png."
+   }
+}
+
+export default errors;
