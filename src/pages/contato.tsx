@@ -1,6 +1,8 @@
 import Button from '@/components/Button';
 import InputField from '@/components/InputField';
 import styles from '@/styles/Contato.module.css';
+import inputFieldData, { InputFieldData } from '@/utils/inputFieldData';
+
 // import { regExTelefone } from '../../utils/regexValidation.js';
 // import { useForm } from 'react-hook-form';
 // import { yupResolver } from '@hookform/resolvers/yup';
@@ -32,38 +34,22 @@ export default function Contato() {
          <section className={styles.contact}>
             <p className={styles.title}>Envie uma mensagem para a pessoa ou instituição que está cuidando do animal:</p>
             <form className={styles.form}>
-               <div className={styles.form__fields}>
-                  <InputField
-                     // register={register}
-                     label='Nome'
-                     type='text'
-                     id='nome'
-                     name='nome'
-                     placeholder='Insira seu nome completo'
-                  />
-                  {/* {errors?.nome?.message && <CampoErro type={errors.nome.type} field="nome" />} */}
-               </div>
-               <div className={styles.form__fields}>
-                  <InputField
-                     // register={register}
-                     label='Telefone'
-                     type='tel' id='telefone'
-                     name='telefone'
-                     placeholder='Insira seu telefone e/ou whatsapp'
-                  />
-                  {/* {errors?.telefone?.message && <CampoErro type={errors.telefone.type} field="telefone" />} */}
-               </div>
-               <div className={styles.form__fields}>
-                  <InputField
-                     // register={register}
-                     label='Nome do animal'
-                     type='text'
-                     id='nome__animal'
-                     name='nome__animal'
-                     placeholder='Por qual animal você se interessou?'
-                  />
-                  {/* {errors?.nome__animal?.message && <CampoErro type={errors.nome__animal.type} field="nome__animal" />} */}
-               </div>
+               {
+                  Object.values(inputFieldData).map((label: InputFieldData) => {
+                     return (
+                     <InputField
+                        // register={register}
+                        key={label.id}
+                        label= {label.label}
+                        type= {label.type}
+                        id= {label.inputId}
+                        name= {label.name}
+                        placeholder= {label.placeholder}
+                     />
+                     )
+                  })
+               }
+               {/* {errors?.nome__animal?.message && <CampoErro type={errors.nome__animal.type} field="nome__animal" />} */}
                <div className={styles.form__fields}>
                   <label htmlFor='contato__texto' className={styles.label}>Mensagem</label>
                   <textarea
