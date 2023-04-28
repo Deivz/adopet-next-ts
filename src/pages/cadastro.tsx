@@ -53,12 +53,12 @@ export default function Cadastro() {
             </div>
             <form className={styles.form}>
                <div className={styles.form__field}>
-                  <InputField label='Email*' type='email' id='email' name='email' placeholder='Escolha seu melhor email' />
+                  <InputField classStyle='register' label='Email*' type='email' id='email' name='email' placeholder='Escolha seu melhor email' />
                   {/* <InputField register={register} label='Email*' type='email' id='email' name='email' placeholder='Escolha seu melhor email' /> */}
                   {/* {errors?.email?.message && <CampoErro type={errors.email.type} field="email" />} */}
                </div>
                <div className={styles.form__field}>
-                  <InputField label='Nome*' type='text' id='nome' name='nome' placeholder='Digite seu nome completo' />
+                  <InputField classStyle='register' label='Nome*' type='text' id='nome' name='nome' placeholder='Digite seu nome completo' />
                   {/* <InputField register={register} label='Nome*' type='text' id='nome' name='nome' placeholder='Digite seu nome completo' /> */}
                   {/* {errors?.nome?.message && <CampoErro type={errors.nome.type} field="nome" />} */}
                </div>

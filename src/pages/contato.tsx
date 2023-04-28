@@ -39,6 +39,7 @@ export default function Contato() {
                      return (
                      <InputField
                         // register={register}
+                        classStyle='contact'
                         key={label.id}
                         label= {label.label}
                         type= {label.type}

@@ -7,8 +7,17 @@
    width: 100%;
 }
 
-.input {
+.contact{
    background: var(--branco);
+   text-align: left;
+}
+
+.register{
+   background: var(--cinza-claro);
+   text-align: center;
+}
+
+.contact, .register {
    border: none;
    border-radius: 6px;
    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
@@ -16,19 +25,29 @@
    height: 48px;
    margin-bottom: 1rem;
    padding: .5rem 1rem;
-   text-align: left;
    width: 280px;
 }
 
-.input::placeholder {
-   font-family: var(--fonte-principal);
-   font-size: 14px;
-   line-height: 24px;
+.contact::placeholder {
    text-align: left;
 }
 
+.register::placeholder {
+   text-align: center;
+}
+
+.contact::placeholder, .register::placeholder {
+   font-family: var(--fonte-principal);
+   font-size: 12px;
+   line-height: 24px;
+}
+
 @media (min-width: 768px){
-   .input {
+   .contact, .register {
        width: 492px;
+   }
+
+   .contact::placeholder, .register::placeholder {
+      font-size: 14px;
    }
 }
