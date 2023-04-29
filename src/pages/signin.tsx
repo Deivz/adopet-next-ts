@@ -31,7 +31,7 @@ export default function SignIn() {
             </div>
             <form className={styles.form} onSubmit={handleSubmit}>
                <div className={styles.form__fields}>
-                  <InputField label='Email' type='email' id='email' name='email' placeholder='Insira seu email' />
+                  <InputField classStyle='register' label='Email' type='email' id='email' name='email' placeholder='Insira seu email' />
                   {/* {!validUser && <CampoErro type='invalid' field="email" />} */}
                </div>
                <div className={styles.form__fields}>
