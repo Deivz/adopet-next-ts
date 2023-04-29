@@ -37,7 +37,7 @@
    font-size: 12px;
    line-height: 16px;
    padding-left: 1rem;
-   padding-top: 2rem;
+   padding-top: 1rem;
    text-align: left;
 }
 
@@ -68,10 +68,14 @@
 @media (min-width: 1440px){
    .card {
        height: 196px;
-       width: 363px;
+       width: 380px;
    }
 
    .card:last-child{
        margin: 0 0 1rem 0;
+   }
+
+   .pet__local {
+      padding-top: 2rem;
    }
 }
