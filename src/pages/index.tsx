@@ -13,7 +13,7 @@ export default function Index() {
       </Head>
       <div className={styles.side__image}>
       </div>
-      <section>
+      <section className={styles.home}>
         <div className={styles.content}>
           <img src='/images/Logo.svg' alt="Logomarca da Adopet" className={styles.logo} />
           <h2 className={styles.content__title}>Boas-vindas!</h2>
@@ -22,9 +22,7 @@ export default function Index() {
           <Button route='signin' text='Já tenho conta' className='linkButton' type='button' />
           <Button route='cadastro' text='Quero me cadastrar' className='linkButton' type='button' />
         </div>
-        <div className={styles.container__illustration}>
-          <img src='/images/ilustracao1.png' alt="Desenho de um cão e um gato" className={styles.illustration} />
-        </div>
+        <img src='/images/ilustracao1.png' alt="Desenho de um cão e um gato" className={styles.illustration} />
       </section>
     </>
   )

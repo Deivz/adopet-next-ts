@@ -28,16 +28,16 @@ export default function DefaultPage({ children }: DefaultPageProps) {
       }
 
       if (pathname === '/signin' || pathname === '/cadastro') {
-         document.getElementById("feet")?.classList.add(styles.feet);
+         document.getElementById("paws")?.classList.add(styles.paws);
       } else {
-         document.getElementById("feet")?.classList.remove(styles.feet);
+         document.getElementById("paws")?.classList.remove(styles.paws);
       }
 
    }, [pathname])
 
    return (
       <div id='generalContent' data-testid='generalContent'>
-         <div id='feet'>
+         <div id='paws'>
          </div>
          <header>
             <div className={`container ${styles.header}`}>

@@ -8,7 +8,7 @@
    width: 100%;
 }
 
-.select {
+.select, .responsible {
    background: var(--branco);
    border: none;
    border-radius: 6px;
@@ -16,11 +16,23 @@
    font-family: var(--fonte-principal);
    margin-bottom: 1rem;
    text-align: left;
+}
+
+.select {
    width: 280px;
+}
+
+.responsible{
+   width: 100%;
 }
 
 @media (min-width: 768px) {
    .select {
       width: 240px;
    }
+
+   .responsible{
+      width: 492px;
+   }
+
 }

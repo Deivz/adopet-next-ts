@@ -5,6 +5,8 @@ import { useState } from 'react';
 export type SelectInputProps = {
    options: Array<SelectOptions>;
    label: string;
+   placeholder: string;
+   type?: string | null;
 }
 
 export type SelectOptions = {
@@ -12,17 +14,18 @@ export type SelectOptions = {
    label: string
 }
 
-export default function SelectInput({ label, options }: SelectInputProps) {
+export default function SelectInput({ label, options, placeholder, type = null }: SelectInputProps) {
    const [selectedOption, setSelectedOption] = useState<SingleValue<{} | null>>(null);
 
    return (
       <div>
          <label className={styles.label}>{label}</label>
          <Select
-            className={styles.select}
+            className={type ? styles[type] : styles.select}
             defaultValue={selectedOption}
             onChange={setSelectedOption}
             options={options}
+            placeholder = {placeholder}
             styles={{
                control: (baseStyles, state) => ({
                   ...baseStyles,

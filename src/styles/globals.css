@@ -20,8 +20,11 @@
 }
 
 html{
-  line-height: 1.15;
+  line-height: 1;
 }
+/* html{
+  line-height: 1.15;
+} */
 
 ::placeholder{
   color: rgba(115,115,128, 0.7);
@@ -67,14 +70,28 @@ footer{
   width: 86vw;
 }
 
+.css-1jqq78o-placeholder {
+  color: rgba(115,115,128, 0.7) !important;
+  font-family: var(--fonte-principal);
+  font-size: 12px;
+}
+
 @media (min-width: 768px){
   .page {
     background-size: 530px 435px, 560px 469px, 135px 664px;
+  }
+
+  .css-1jqq78o-placeholder {
+    font-size: 14px;
   }
 }
 
 @media (min-width: 1600px){
   .page {
     background-size: 570px 470px, 590px 495px, 135px 664px;
+  }
+
+  .css-1jqq78o-placeholder {
+    font-size: 16px;
   }
 }
