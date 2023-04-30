@@ -1,0 +1,39 @@
+.label {
+   display: block;
+   font-weight: 600;
+   font-size: 16px;
+   line-height: 24px;
+   margin-bottom: .5rem;
+   text-align: left;
+   width: 100%;
+}
+
+.input {
+   background: var(--branco);
+   border: none;
+   border-radius: 6px;
+   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
+   font-family: var(--fonte-principal);
+   height: 48px;
+   margin-bottom: 1rem;
+   padding: .5rem 1rem;
+   text-align: left;
+   width: 280px;
+}
+
+.input::placeholder {
+   font-family: var(--fonte-principal);
+   font-size: 12px;
+   line-height: 24px;
+   text-align: left;
+}
+
+@media (min-width: 768px) {
+   .input {
+      width: 240px;
+   }
+
+   .input::placeholder {
+      font-size: 14px;
+   }
+}

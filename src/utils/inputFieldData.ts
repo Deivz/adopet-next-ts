@@ -7,7 +7,7 @@ export interface InputFieldData {
    placeholder: string;
 }
 
-interface ObjectInputData {
+export interface ObjectInputData {
    [key: string]: InputFieldData;
 }
 
