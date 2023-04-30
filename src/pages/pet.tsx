@@ -5,6 +5,8 @@ import SelectInput, { SelectOptions } from '@/components/SelectInput';
 import styles from '@/styles/Pet.module.css';
 import { InputFieldData } from '@/utils/inputFieldData';
 import formInputPets from '@/utils/petRegistration';
+import { SubmitHandler, useForm } from "react-hook-form";
+import { z } from 'zod';
 
 type PetProps = {
    countries: Array<SelectOptions>;
@@ -44,6 +46,11 @@ type Country = {
    lat: string,
    fcode: string
 }
+
+// type FormInputs = {
+//    responsible: string;
+//    photo: File | null
+// }
 
 export async function getStaticProps() {
    try {
@@ -96,13 +103,46 @@ export async function getStaticProps() {
 }
 
 export default function Pet({ countries, message, responsibles }: PetProps) {
+
+   const { register, handleSubmit } = useForm();
+
+   const onSubmit = (data) => {
+      console.log('Dados do formulário', data);
+    };
+
+   // const schema = z.object({
+   //    responsible: z.string().nonempty('O campo responsável não pode estar vazio'),
+   //    photo: z.string().refine((value) => {
+   //       return !!value && typeof value === 'object' && Object.keys(value).length > 0;
+   //     }, { message: 'O campo de arquivo é obrigatório' })
+   //  });
+
+   //  const onSubmit = async (data) => {
+   //    try {
+   //      await schema.validate(data);
+   //      console.log('Formulário válido', data);
+   //    } catch (error) {
+   //      console.log('Erro de validação', error);
+   //    }
+   //  };
+
+   // const { handleSubmit, register, watch } = useForm<FormInputs>({
+   //    defaultValues: {
+   //       responsible: '',
+   //       photo: null
+   //    },
+   //    resolver: zodResolver
+   // });
+
+   // const onSubmit: SubmitHandler<FormInputs> = (data) => console.log(data);
+
    return (
       <>
          <div className={styles.side__image}>
          </div>
          <section className={styles.pet}>
             <p className={styles.title}>Cadastre um novo animal para disponibilizá-lo para adoção:</p>
-            <form className={styles.form}>
+            <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
                <div className={styles.container}>
                   {
                      Object.values(formInputPets).map((label: InputFieldData) => {
@@ -125,7 +165,7 @@ export default function Pet({ countries, message, responsibles }: PetProps) {
                {message && <SelectInput label='Estado' options={message} placeholder='Não encontrado' />}
                <FileButton label='Foto' />
                <div className={styles.button}>
-                  <Button type='submit' className='button' value='Enviar' />
+                  <Button type='submit' className='button' value='Enviar' onClickFunction={handleSubmit} />
                </div>
             </form>
          </section>

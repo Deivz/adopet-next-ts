@@ -34,5 +34,10 @@
    .responsible{
       width: 492px;
    }
+}
 
+@media (min-width: 1440px) {
+   .responsible{
+      width: 768px;
+   }
 }

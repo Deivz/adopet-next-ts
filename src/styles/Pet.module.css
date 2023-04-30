@@ -1,5 +1,6 @@
 .pet {
    color: var(--azul);
+   justify-content: space-evenly;
 }
 
 .side__image {
@@ -55,7 +56,8 @@
 
 @media (min-width: 1440px) {
    .form {
-      width: 700px;
+      min-height: 500px;
+      width: 800px;
    }
 
    .side__image {

@@ -31,6 +31,9 @@ html{
 }
 
 section{
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
   z-index: 1;
 }
 
@@ -89,9 +92,5 @@ footer{
 @media (min-width: 1600px){
   .page {
     background-size: 570px 470px, 590px 495px, 135px 664px;
-  }
-
-  .css-1jqq78o-placeholder {
-    font-size: 16px;
   }
 }

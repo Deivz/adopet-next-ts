@@ -1,3 +1,7 @@
+.home{
+   justify-content: space-evenly;
+}
+
 .title__mobile {
    color: var(--azul);
    font-size: 16px;
@@ -48,10 +52,6 @@
 
 
 @media (min-width: 1440px) {
-   .home {
-      margin-top: 8rem;
-   }
-
    .title__mobile {
       display: inline-block;
       color: var(--azul);
