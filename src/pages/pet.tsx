@@ -3,10 +3,10 @@ import FileButton from '@/components/FileButton';
 import FormInput from '@/components/FormInput';
 import SelectInput, { SelectOptions } from '@/components/SelectInput';
 import styles from '@/styles/Pet.module.css';
-import { InputFieldData } from '@/utils/inputFieldData';
-import formInputPets from '@/utils/petRegistration';
 import { SubmitHandler, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from 'zod';
+import ErrorField from '@/components/ErrorField';
 
 type PetProps = {
    countries: Array<SelectOptions>;
@@ -47,10 +47,13 @@ type Country = {
    fcode: string
 }
 
-// type FormInputs = {
-//    responsible: string;
-//    photo: File | null
-// }
+export type FormInputs = {
+   nome: string;
+   idade: string;
+   porte: string;
+   perfil: string;
+   cidade: string;
+}
 
 export async function getStaticProps() {
    try {
@@ -104,37 +107,31 @@ export async function getStaticProps() {
 
 export default function Pet({ countries, message, responsibles }: PetProps) {
 
-   const { register, handleSubmit } = useForm();
+   const stringErrorMessage = 'Este campo não pode estar vazio';
 
-   const onSubmit = (data) => {
-      console.log('Dados do formulário', data);
-    };
+   const schema = z.object({
+      nome: z.string().nonempty(stringErrorMessage),
+      idade: z.string().nonempty(stringErrorMessage),
+      porte: z.string().nonempty(stringErrorMessage),
+      perfil: z.string().nonempty(stringErrorMessage),
+      cidade: z.string().nonempty(stringErrorMessage)
+      // photo: z.string().refine((value) => {
+      //    return !!value && typeof value === 'object' && Object.keys(value).length > 0;
+      //  }, { message: 'O campo de arquivo é obrigatório' })
+   });
 
-   // const schema = z.object({
-   //    responsible: z.string().nonempty('O campo responsável não pode estar vazio'),
-   //    photo: z.string().refine((value) => {
-   //       return !!value && typeof value === 'object' && Object.keys(value).length > 0;
-   //     }, { message: 'O campo de arquivo é obrigatório' })
-   //  });
+   const { formState: { errors, isSubmitting }, handleSubmit, register } = useForm<FormInputs>({
+      defaultValues: {
+         nome: '',
+         idade: '',
+         porte: '',
+         perfil: '',
+         cidade: ''
+      },
+      resolver: zodResolver(schema)
+   });
 
-   //  const onSubmit = async (data) => {
-   //    try {
-   //      await schema.validate(data);
-   //      console.log('Formulário válido', data);
-   //    } catch (error) {
-   //      console.log('Erro de validação', error);
-   //    }
-   //  };
-
-   // const { handleSubmit, register, watch } = useForm<FormInputs>({
-   //    defaultValues: {
-   //       responsible: '',
-   //       photo: null
-   //    },
-   //    resolver: zodResolver
-   // });
-
-   // const onSubmit: SubmitHandler<FormInputs> = (data) => console.log(data);
+   const onSubmit: SubmitHandler<FormInputs> = (data) => console.log(data);
 
    return (
       <>
@@ -144,28 +141,41 @@ export default function Pet({ countries, message, responsibles }: PetProps) {
             <p className={styles.title}>Cadastre um novo animal para disponibilizá-lo para adoção:</p>
             <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
                <div className={styles.container}>
-                  {
-                     Object.values(formInputPets).map((label: InputFieldData) => {
-                        return (
-                           <FormInput
-                              key={label.id}
-                              label={label.label}
-                              type={label.type}
-                              id={label.inputId}
-                              name={label.name}
-                              placeholder={label.placeholder}
-                           />
-                        )
-                     })
-                  }
-                  {countries && <SelectInput label='Estado' options={countries} placeholder='Estado onde o pet reside' />}
-                  {message && <SelectInput label='Estado' options={message} placeholder='Não encontrado' />}
+                  <FormInput label='Nome' type='text' id='nome' placeholder='Nome do pet' status={isSubmitting} register={register} errors={errors} />
+                  <FormInput label='Idade' type='text' id='idade' placeholder='Idade do pet' status={isSubmitting} register={register} errors={errors} />
+                  <FormInput label='Porte' type='text' id='porte' placeholder='Porte do pet' status={isSubmitting} register={register} errors={errors} />
+                  <FormInput label='Perfil' type='text' id='perfil' placeholder='Perfil do pet' status={isSubmitting} register={register} errors={errors} />
+                  <FormInput label='Cidade' type='text' id='cidade' placeholder='Cidade do pet' status={isSubmitting} register={register} errors={errors} />
+                  {countries &&
+                     <SelectInput
+                        id='country'
+                        label='Estado'
+                        options={countries}
+                        placeholder='Estado onde o pet reside'
+                        status={isSubmitting}
+                        errors={errors}
+                        register={register}
+                     />}
+                  {/* {message &&
+                     <SelectInput id='message' label='Estado' options={message} placeholder='Não encontrado' />} */}
                </div>
-               {responsibles && <SelectInput label='Responsável' options={responsibles} placeholder='Responsável pelo pet' type='responsible' />}
-               {message && <SelectInput label='Estado' options={message} placeholder='Não encontrado' />}
+               {responsibles &&
+                  <SelectInput
+                     id='responsible'
+                     label='Responsável'
+                     options={responsibles}
+                     placeholder='Responsável pelo pet'
+                     type='responsible'
+                     status={isSubmitting}
+                     errors={errors}
+                     register={register}
+                  />}
+               {/* {message &&
+                  <SelectInput id='message' label='Estado' options={message} placeholder='Não encontrado' />} */}
                <FileButton label='Foto' />
+               {/* {errors?.photo?.message && <ErrorField message={errors?.photo?.message} />} */}
                <div className={styles.button}>
-                  <Button type='submit' className='button' value='Enviar' onClickFunction={handleSubmit} />
+                  <Button type='submit' className='button' value='Enviar' />
                </div>
             </form>
          </section>

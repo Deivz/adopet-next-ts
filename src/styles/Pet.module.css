@@ -1,6 +1,7 @@
 .pet {
    color: var(--azul);
    justify-content: space-evenly;
+   padding-top: 4rem;
 }
 
 .side__image {

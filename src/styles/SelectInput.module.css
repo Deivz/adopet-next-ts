@@ -1,3 +1,9 @@
+.selectInput{
+   display: flex;
+   flex-direction: column;
+   height: 120px;
+}
+
 .label {
    display: block;
    font-weight: 600;
