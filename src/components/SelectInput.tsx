@@ -1,6 +1,6 @@
-import Select, { SingleValue } from 'react-select';
+import Select from 'react-select';
 import styles from '@/styles/SelectInput.module.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ErrorField from './ErrorField';
 
 export type SelectInputProps = {
@@ -10,8 +10,8 @@ export type SelectInputProps = {
    label: string;
    placeholder: string;
    type?: string | null;
-   register: any;
-   status: boolean;
+   value: any;
+   onChange: any;
 }
 
 export type SelectOptions = {
@@ -19,27 +19,26 @@ export type SelectOptions = {
    label: string
 }
 
-export default function SelectInput({ errors, id, label, options, placeholder, type = null, register, status }: SelectInputProps) {
-
-   const [selectedOption, setSelectedOption] = useState<SingleValue<{} | null>>(null);
+export default function SelectInput({ errors, id, label, options, placeholder, type = null, value, onChange }: SelectInputProps) {
 
    return (
       <div className={styles.selectInput}>
          <label className={styles.label}>{label}</label>
          <Select
             className={type ? styles[type] : styles.select}
-            defaultValue={selectedOption}
-            onChange={setSelectedOption}
+            onChange={onChange}
             options={options}
             placeholder={placeholder}
-            name={id}
+            id={id}
             styles={{
                control: (baseStyles, state) => ({
                   ...baseStyles,
                   minHeight: 48
                }),
             }}
+            value={value}
          />
+         {errors?.[id]?.message && <ErrorField message={errors?.[id]?.message} />}
       </div>
    );
 }

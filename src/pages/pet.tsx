@@ -3,10 +3,9 @@ import FileButton from '@/components/FileButton';
 import FormInput from '@/components/FormInput';
 import SelectInput, { SelectOptions } from '@/components/SelectInput';
 import styles from '@/styles/Pet.module.css';
-import { SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from 'zod';
-import ErrorField from '@/components/ErrorField';
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
 type PetProps = {
    countries: Array<SelectOptions>;
@@ -53,6 +52,9 @@ export type FormInputs = {
    porte: string;
    perfil: string;
    cidade: string;
+   estado: string;
+   cod_responsavel: string;
+   foto: File;
 }
 
 export async function getStaticProps() {
@@ -109,29 +111,56 @@ export default function Pet({ countries, message, responsibles }: PetProps) {
 
    const stringErrorMessage = 'Este campo não pode estar vazio';
 
-   const schema = z.object({
-      nome: z.string().nonempty(stringErrorMessage),
-      idade: z.string().nonempty(stringErrorMessage),
-      porte: z.string().nonempty(stringErrorMessage),
-      perfil: z.string().nonempty(stringErrorMessage),
-      cidade: z.string().nonempty(stringErrorMessage)
-      // photo: z.string().refine((value) => {
-      //    return !!value && typeof value === 'object' && Object.keys(value).length > 0;
-      //  }, { message: 'O campo de arquivo é obrigatório' })
+   const validacao = yup.object().shape({
+      nome: yup.string().required().max(50),
+      idade: yup.string().required().max(50),
+      porte: yup.string().required().max(50),
+      perfil: yup.string().required().max(50),
+      cidade: yup.string().required().max(50),
+      estado: yup.string().required(),
+      cod_responsavel: yup.string().required(),
+      foto: yup.mixed().required().test("fileSize", "O arquivo deve possuir no máximo 2MB", (value: any) => {
+         if (!value?.length) return true // attachment is optional
+         return value[0].size <= 200000
+      })
    });
 
-   const { formState: { errors, isSubmitting }, handleSubmit, register } = useForm<FormInputs>({
-      defaultValues: {
-         nome: '',
-         idade: '',
-         porte: '',
-         perfil: '',
-         cidade: ''
-      },
-      resolver: zodResolver(schema)
+   const { control, register, handleSubmit, formState: { errors } } = useForm<FormInputs>({
+      resolver: yupResolver(validacao)
    });
 
-   const onSubmit: SubmitHandler<FormInputs> = (data) => console.log(data);
+   // const onSubmit: SubmitHandler<FormInputs> = (data) => console.log(data, data.foto);
+
+   function onSubmit(data: any): SubmitHandler<FormInputs> {
+      // let pet = {
+      //    nome: data.nome,
+      //    idade: data.idade,
+      //    porte: data.porte,
+      //    perfil: data.perfil,
+      //    cidade: data.cidade,
+      //    estado: data.estado,
+      //    foto: data.foto[0],
+      //    cod_responsavel: data.responsavel
+      // }
+
+      // data.foto = data.foto[0].name;
+      delete data.foto;
+      delete data.responsavel;
+      data = JSON.stringify(data);
+
+      // console.log(data)
+
+      fetch('http://127.0.0.1:8000/api/pets', {
+         method: 'POST',
+         body: data
+         // headers: {
+         //    'content-type': 'multipart/form-data'
+         // },
+      })
+         .then((res) => res.json())
+         .then((data) => console.log(data))
+         .catch((err) => console.error(err));
+   }
 
    return (
       <>
@@ -141,39 +170,60 @@ export default function Pet({ countries, message, responsibles }: PetProps) {
             <p className={styles.title}>Cadastre um novo animal para disponibilizá-lo para adoção:</p>
             <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
                <div className={styles.container}>
-                  <FormInput label='Nome' type='text' id='nome' placeholder='Nome do pet' status={isSubmitting} register={register} errors={errors} />
-                  <FormInput label='Idade' type='text' id='idade' placeholder='Idade do pet' status={isSubmitting} register={register} errors={errors} />
-                  <FormInput label='Porte' type='text' id='porte' placeholder='Porte do pet' status={isSubmitting} register={register} errors={errors} />
-                  <FormInput label='Perfil' type='text' id='perfil' placeholder='Perfil do pet' status={isSubmitting} register={register} errors={errors} />
-                  <FormInput label='Cidade' type='text' id='cidade' placeholder='Cidade do pet' status={isSubmitting} register={register} errors={errors} />
-                  {countries &&
-                     <SelectInput
-                        id='country'
-                        label='Estado'
-                        options={countries}
-                        placeholder='Estado onde o pet reside'
-                        status={isSubmitting}
-                        errors={errors}
-                        register={register}
-                     />}
+                  <FormInput label='Nome' type='text' id='nome' placeholder='Nome do pet' register={register} errors={errors} />
+                  <FormInput label='Idade' type='text' id='idade' placeholder='Idade do pet' register={register} errors={errors} />
+                  <FormInput label='Porte' type='text' id='porte' placeholder='Porte do pet' register={register} errors={errors} />
+                  <FormInput label='Perfil' type='text' id='perfil' placeholder='Perfil do pet' register={register} errors={errors} />
+                  <FormInput label='Cidade' type='text' id='cidade' placeholder='Cidade do pet' register={register} errors={errors} />
+                  {
+                     countries &&
+                     <Controller
+                        name="estado"
+                        control={control}
+                        render={({ field: { onChange, value } }) => (
+                           <SelectInput
+                              id='estado'
+                              label='Estado'
+                              options={countries}
+                              placeholder='Estado onde o pet reside'
+                              errors={errors}
+                              value={countries.find((c) => c.value === value)}
+                              onChange={(val: any) => onChange(val.value)}
+                           />
+                        )}
+                     />
+                  }
                   {/* {message &&
                      <SelectInput id='message' label='Estado' options={message} placeholder='Não encontrado' />} */}
                </div>
-               {responsibles &&
-                  <SelectInput
-                     id='responsible'
-                     label='Responsável'
-                     options={responsibles}
-                     placeholder='Responsável pelo pet'
-                     type='responsible'
-                     status={isSubmitting}
-                     errors={errors}
-                     register={register}
-                  />}
+               {
+                  responsibles &&
+                  <Controller
+                     name="cod_responsavel"
+                     control={control}
+                     render={({ field: { onChange, value } }) => (
+                        <SelectInput
+                           id='cod_responsavel'
+                           type='responsible'
+                           label='Responsável'
+                           options={responsibles}
+                           placeholder='Responsável pelo pet'
+                           errors={errors}
+                           value={responsibles.find((c) => c.value === value)}
+                           onChange={(val: any) => onChange(val.value)}
+                        />
+                     )}
+                  />
+               }
                {/* {message &&
                   <SelectInput id='message' label='Estado' options={message} placeholder='Não encontrado' />} */}
-               <FileButton label='Foto' />
-               {/* {errors?.photo?.message && <ErrorField message={errors?.photo?.message} />} */}
+               {/* <FileButton label='Foto' id='foto' register={register} errors={errors} /> */}
+               <FileButton
+                  label='Foto'
+                  id='foto'
+                  register={register}
+                  errors={errors}
+               />
                <div className={styles.button}>
                   <Button type='submit' className='button' value='Enviar' />
                </div>
