@@ -54,7 +54,7 @@ export type FormInputs = {
    cidade: string;
    estado: string;
    cod_responsavel: string;
-   foto: File;
+   foto: any;
 }
 
 export async function getStaticProps() {
@@ -131,35 +131,27 @@ export default function Pet({ countries, message, responsibles }: PetProps) {
 
    // const onSubmit: SubmitHandler<FormInputs> = (data) => console.log(data, data.foto);
 
-   function onSubmit(data: any): SubmitHandler<FormInputs> {
-      // let pet = {
-      //    nome: data.nome,
-      //    idade: data.idade,
-      //    porte: data.porte,
-      //    perfil: data.perfil,
-      //    cidade: data.cidade,
-      //    estado: data.estado,
-      //    foto: data.foto[0],
-      //    cod_responsavel: data.responsavel
-      // }
+   function onSubmit(petData: FormInputs) {
+      const formData = new FormData();
+      let dataKey: string | undefined = '';
 
-      // data.foto = data.foto[0].name;
-      delete data.foto;
-      delete data.responsavel;
-      data = JSON.stringify(data);
-
-      // console.log(data)
+      petData.foto = petData.foto[0]
+      Object.values(petData).forEach((data, index) => {
+         dataKey = Object.keys(petData).at(index)
+         formData.append(dataKey, data);
+      });
 
       fetch('http://127.0.0.1:8000/api/pets', {
          method: 'POST',
-         body: data
+         body: formData,
          // headers: {
          //    'content-type': 'multipart/form-data'
+         //    // 'content-type': 'application/json'
          // },
       })
          .then((res) => res.json())
-         .then((data) => console.log(data))
-         .catch((err) => console.error(err));
+         .then((data) => alert(data))
+         .catch((err) => alert(err));
    }
 
    return (
