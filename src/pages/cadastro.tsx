@@ -3,43 +3,61 @@ import InputField from '@/components/InputField';
 import InputPassword from '@/components/InputPassword';
 import styles from '@/styles/Cadastro.module.css';
 import Link from 'next/link';
-// import { useForm } from 'react-hook-form';
-// import { yupResolver } from '@hookform/resolvers/yup';
-// import * as yup from 'yup';
-// import { regExName, regExPassword } from '../../utils/regexValidation.js';
-// import CampoErro from '../../components/CampoErro';
-// import { api } from '../../../services/api';
-// import { useNavigate } from "react-router-dom";
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { regExName, regExPassword } from '../utils/regexValidation';
+import { useRouter } from 'next/router';
+
+export type FormInputs = {
+   name: string;
+   password: string;
+   email: string;
+}
 
 export default function Cadastro() {
 
-   // const validacao = yup.object().shape({
-   //    email: yup.string().required().email().max(50),
-   //    nome: yup.string().required().min(2).max(50).matches(regExName),
-   //    senha: yup.string().required().max(15).matches(regExPassword),
-   //    senha__confirma: yup.string().required().oneOf([yup.ref('senha'), null])
-   // });
+   const validacao = yup.object().shape({
+      email: yup.string().required().email().max(50),
+      name: yup.string().required().min(2).max(50).matches(regExName),
+      password: yup.string().required().max(15).matches(regExPassword),
+      password_confirmation: yup.string().required().oneOf([yup.ref('password')])
+   });
 
-   // const { register, handleSubmit, formState: { errors } } = useForm({
-   //    resolver: yupResolver(validacao)
-   // }, []);
+   const { register, handleSubmit, formState: { errors } } = useForm<FormInputs>({
+      resolver: yupResolver(validacao)
+   });
 
-   // const navigate = useNavigate();
+   const router = useRouter()
 
-   // function onSubmit(data) {
-   //    api.post('/users', {
-   //       email: data.email,
-   //       nome: data.nome,
-   //       senha: data.senha
-   //    })
-   //       .then(() => {
-   //          alert("Usuário cadastrado com sucesso!");
-   //          navigate('/login');
-   //       })
-   //       .catch((error) => {
-   //          console.log(error);
-   //       });
-   // }
+   function onSubmit(userData: FormInputs) {
+      fetch('http://127.0.0.1:8000/api/users', {
+         method: 'POST',
+         body: JSON.stringify(userData),
+         headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+         },
+      })
+         .then((res) => {
+            if (!res.ok) {
+               throw new Error('Não foi possível realizar seu cadastro.');
+            }
+            return res.json();
+         })
+         .then((data) => {
+            if (data.success) {
+               router.push('/home')
+               // setModalStatusOk(true);
+               // setKey(key);
+               // reset();
+            }
+         })
+         .catch((err) => {
+            // setModalStatusError(true);
+            alert('Deu erro');
+         });
+   }
 
    return (
       <>
@@ -51,26 +69,18 @@ export default function Cadastro() {
                <p className={styles.content__title}>Ainda não tem cadastro?</p>
                <p className={styles.content__text}>Então, antes de buscar seu melhor amigo, precisamos de alguns dados:</p>
             </div>
-            <form className={styles.form}>
+            <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
                <div className={styles.form__field}>
-                  <InputField classStyle='register' label='Email*' type='email' id='email' name='email' placeholder='Escolha seu melhor email' />
-                  {/* <InputField register={register} label='Email*' type='email' id='email' name='email' placeholder='Escolha seu melhor email' /> */}
-                  {/* {errors?.email?.message && <CampoErro type={errors.email.type} field="email" />} */}
+                  <InputField classStyle='register' label='Email*' type='email' id='email' name='email' placeholder='Escolha seu melhor email' register={register} errors={errors} />
                </div>
                <div className={styles.form__field}>
-                  <InputField classStyle='register' label='Nome*' type='text' id='nome' name='nome' placeholder='Digite seu nome completo' />
-                  {/* <InputField register={register} label='Nome*' type='text' id='nome' name='nome' placeholder='Digite seu nome completo' /> */}
-                  {/* {errors?.nome?.message && <CampoErro type={errors.nome.type} field="nome" />} */}
+                  <InputField classStyle='register' label='Nome*' type='text' id='name' name='name' placeholder='Digite seu nome completo' register={register} errors={errors} />
                </div>
                <div className={styles.form__field}>
-                  <InputPassword label='Senha*' id='senha' name='senha' placeholder='Crie uma senha' />
-                  {/* <SenhaInput register={register} label='Senha*' id='senha' name='senha' placeholder='Crie uma senha' /> */}
-                  {/* {errors?.senha?.message && <CampoErro type={errors.senha.type} field="senha" />} */}
+                  <InputPassword label='Senha*' id='password' name='password' placeholder='Crie uma senha' register={register} errors={errors} />
                </div>
                <div className={styles.form__field}>
-                  <InputPassword label='Confirma sua senha*' id='senha__confirma' name='senha__confirma' placeholder='Repita a senha criada acima' />
-                  {/* <InputPassword register={register} label='Confirma sua senha*' id='senha__confirma' name='senha__confirma' placeholder='Repita a senha criada acima' /> */}
-                  {/* {errors?.senha__confirma?.message && <CampoErro type={errors.senha__confirma.type} field="senha__confirma" />} */}
+                  <InputPassword label='Confirma sua senha*' id='password_confirmation' name='password_confirmation' placeholder='Repita a senha criada acima' register={register} errors={errors} />
                </div>
                <div className={styles.button__mobile}>
                   <Button className='button' type='submit' value='Cadastrar' />

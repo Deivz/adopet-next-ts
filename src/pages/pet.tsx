@@ -137,11 +137,11 @@ export default function Pet({ countries, message, responsibles }: PetProps) {
 
    function onSubmit(petData: FormInputs) {
       const formData = new FormData();
-      let dataKey: string | undefined = '';
+      let dataKey: string = '';
 
       petData.foto = petData.foto[0]
       Object.values(petData).forEach((data, index) => {
-         dataKey = Object.keys(petData).at(index)
+         dataKey = Object.keys(petData).at(index) ?? '';
          formData.append(dataKey, data);
       });
 
