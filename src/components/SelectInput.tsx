@@ -4,14 +4,14 @@ import { useEffect, useState } from 'react';
 import ErrorField from './ErrorField';
 
 export type SelectInputProps = {
-   errors: any;
+   errors?: any;
    id: string;
    options: Array<SelectOptions>;
    label: string;
    placeholder: string;
    type?: string | null;
-   value: any;
-   onChange: any;
+   value?: any;
+   onChange?: any;
 }
 
 export type SelectOptions = {

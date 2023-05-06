@@ -6,6 +6,8 @@ import styles from '@/styles/Pet.module.css';
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import CustomizedDialogs from '@/components/CustomizedDialogs';
+import { useState } from 'react';
 
 type PetProps = {
    countries: Array<SelectOptions>;
@@ -109,6 +111,10 @@ export async function getStaticProps() {
 
 export default function Pet({ countries, message, responsibles }: PetProps) {
 
+   const [modalStatusOk, setModalStatusOk] = useState(false);
+   const [modalStatusError, setModalStatusError] = useState(false);
+   const [key, setKey] = useState(0);
+
    const stringErrorMessage = 'Este campo não pode estar vazio';
 
    const validacao = yup.object().shape({
@@ -125,11 +131,9 @@ export default function Pet({ countries, message, responsibles }: PetProps) {
       })
    });
 
-   const { control, register, handleSubmit, formState: { errors } } = useForm<FormInputs>({
+   const { control, register, reset, handleSubmit, formState: { errors } } = useForm<FormInputs>({
       resolver: yupResolver(validacao)
    });
-
-   // const onSubmit: SubmitHandler<FormInputs> = (data) => console.log(data, data.foto);
 
    function onSubmit(petData: FormInputs) {
       const formData = new FormData();
@@ -144,14 +148,23 @@ export default function Pet({ countries, message, responsibles }: PetProps) {
       fetch('http://127.0.0.1:8000/api/pets', {
          method: 'POST',
          body: formData,
-         // headers: {
-         //    'content-type': 'multipart/form-data'
-         //    // 'content-type': 'application/json'
-         // },
       })
-         .then((res) => res.json())
-         .then((data) => alert(data))
-         .catch((err) => alert(err));
+         .then((res) => {
+            if (!res.ok) {
+               throw new Error('Não foi possível enviar os dados do pet.');
+            }
+            return res.json();
+         })
+         .then((data) => {
+            if (data.success) {
+               setModalStatusOk(true);
+               setKey(key);
+               reset();
+            }
+         })
+         .catch((err) => {
+            setModalStatusError(true);
+         });
    }
 
    return (
@@ -174,19 +187,20 @@ export default function Pet({ countries, message, responsibles }: PetProps) {
                         control={control}
                         render={({ field: { onChange, value } }) => (
                            <SelectInput
+                              key={`selectKeyNumberOne${key}`}
                               id='estado'
                               label='Estado'
                               options={countries}
                               placeholder='Estado onde o pet reside'
                               errors={errors}
-                              value={countries.find((c) => c.value === value)}
+                              value={countries.find((c) => c.value === value) || ''}
                               onChange={(val: any) => onChange(val.value)}
                            />
                         )}
                      />
                   }
-                  {/* {message &&
-                     <SelectInput id='message' label='Estado' options={message} placeholder='Não encontrado' />} */}
+                  {message &&
+                     <SelectInput id='message' label='Estado' options={message} placeholder='Não encontrado' />}
                </div>
                {
                   responsibles &&
@@ -195,21 +209,21 @@ export default function Pet({ countries, message, responsibles }: PetProps) {
                      control={control}
                      render={({ field: { onChange, value } }) => (
                         <SelectInput
+                           key={`selectKeyNumberTwo${key}`}
                            id='cod_responsavel'
                            type='responsible'
                            label='Responsável'
                            options={responsibles}
                            placeholder='Responsável pelo pet'
                            errors={errors}
-                           value={responsibles.find((c) => c.value === value)}
+                           value={responsibles.find((c) => c.value === value) || ''}
                            onChange={(val: any) => onChange(val.value)}
                         />
                      )}
                   />
                }
-               {/* {message &&
-                  <SelectInput id='message' label='Estado' options={message} placeholder='Não encontrado' />} */}
-               {/* <FileButton label='Foto' id='foto' register={register} errors={errors} /> */}
+               {message &&
+                  <SelectInput id='message' label='Estado' options={message} placeholder='Não encontrado' />}
                <FileButton
                   label='Foto'
                   id='foto'
@@ -220,6 +234,8 @@ export default function Pet({ countries, message, responsibles }: PetProps) {
                   <Button type='submit' className='button' value='Enviar' />
                </div>
             </form>
+            {modalStatusOk && <CustomizedDialogs title='Sucesso' text='Pet cadastrado com sucesso!' modalStatus={setModalStatusOk} />}
+            {modalStatusError && <CustomizedDialogs title='Erro' text='Não foi possível cadastrar o pet!' modalStatus={setModalStatusError} />}
          </section>
       </>
    );
